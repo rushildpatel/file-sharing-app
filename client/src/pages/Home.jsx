@@ -1,8 +1,16 @@
 import "../App.css";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { getSignedUrl } from "../services/api";
 
 const Home = () => {
   const fileInputRef = useRef();
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await getSignedUrl();
+    };
+    getData();
+  }, []);
 
   return (
     <div className="container">
