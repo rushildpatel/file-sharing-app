@@ -1,6 +1,6 @@
 import "../App.css";
 import { useEffect, useRef, useState } from "react";
-import { getSignedUrl } from "../services/api";
+import { getSignedUrl, upoadFile } from "../services/api";
 
 const Home = () => {
   const [url, setUrl] = useState("");
@@ -16,6 +16,13 @@ const Home = () => {
     getData();
   }, []);
 
+  useEffect(() => {
+    const getData = async () => {
+      const response = await upoadFile(url, file);
+    };
+    file && getData();
+  }, [file]);
+
   return (
     <div className="container">
       <h1>FileBin</h1>
@@ -23,7 +30,7 @@ const Home = () => {
 
       <p>
         <span>1</span>
-        <input type="file" ref={fileInputRef} style={{ display: "none" }} onChange={() => setFile(e.target.files)} />
+        <input type="file" ref={fileInputRef} style={{ display: "none" }} onChange={() => setFile(e.target.files[0])} />
         <button onClick={() => fileInputRef.current.click()}>Select Files to Upload</button>
         or drag-and-drop files into this browser window.{" "}
       </p>
